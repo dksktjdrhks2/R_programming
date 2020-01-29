@@ -1,0 +1,16 @@
+histogram
+
+barplot
+freqency
+
+boxplot
+
+ggplot2 << ★
+
+ggplot() 그래프 판 만들기
+geom_??() 어떤 그래프를 그릴것인지 선택
+coord_polar() - 선버스트 차트 (기존에 막대그래프를 그려놓고 시작해야함.)
+coord_polar(theta = "y") - 원형그래프
+geom_histogram(binwidth = 1) 히스토그램 \
+-> ggplot(xxx, aes(Temp)) +
+  geom_histogram(binwidth = 1) 이런식으로 사용한다
