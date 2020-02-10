@@ -95,30 +95,33 @@ summary(mod1)
 # F-statistic(F-통계량)의 p-value 를 이용해서 확인 => 2.2e-16로 0.05보다 매우 작아서 유의하다.
 
 library(MASS)
-newdata2 <- Prestige[,c(1:5)] 
+newdata2 <- Prestige[,c(1:5)]
 head(newdata2)
-mod2 <- lm(income ~ education + prestige +
-             women + census, data= newdata2)
-mod3 <- stepAIC(mod2) 	
-mod3 		
+mod2 <- lm(income ~ education + prestige + women + census, data= newdata2)
+mod3 <- stepAIC(mod2)
+mod3
 summary(mod3)
   
-
+# 3. 로지스틱 회귀분석
+# 회귀모델에서 종속변수의 값의 형태가 연속형 숫자가 아닌 범주형 값인 경우를 다루기 위한
+# 통계적 방법 ex) iris데이터셋에서 4개의 측정값으로 품종을 예측, 품종이 범주형 값
+# R에서 로지스틱 회귀 모델은 glm() 함수 이용
 iris.new <- iris
 iris.new$Species <- as.integer(iris.new$Species)
 head(iris.new)
 mod.iris <- glm(Species ~., data= iris.new) 
 summary(mod.iris) 			
   
-
-
-unknown <- data.frame(rbind(c(5.1, 3.5, 1.4, 0.2)))
+# 3. 로지스틱 회귀모델을 이용한 예측 => 수작업으로 계산하여 품종을 예측하는 방법 대신, 구해놓은 회귀모델을 이용하여 보다 편리한
+# 방법으로 품종을 예측
+# 예측 대상 데이터 생성(데이터 프레임)
+tail(iris)
+unknown <- data.frame(rbind(c(5.9, 3.0, 5.1, 1.8)))
 names(unknown) <- names(iris)[1:4]
 unknown                            
 pred <- predict(mod.iris, unknown)
 pred                               
-round(pred,0)                    
-
+round(pred,0)
 
 pred <- round(pred,0)
 pred
@@ -134,4 +137,4 @@ pred
 answer <- as.integer(iris$Species)     
 pred == answer                        
 acc <- mean(pred == answer)           
-acc                                  
+acc
